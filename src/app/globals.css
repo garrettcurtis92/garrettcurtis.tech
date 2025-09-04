@@ -1,0 +1,87 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Disable the stylelint rule that flags unknown at-rules (e.g. Tailwind's @apply/@tailwind). */
+ /* stylelint-disable at-rule-no-unknown */
+
+/* -------- Global design tokens via CSS variables -------- */
+:root {
+  --content-width: 64rem;
+
+  /* Light theme */
+  --bg: #faf7f2;
+  --fg: #1f2937; /* gray-800 */
+
+  /* Blob colors (light) */
+  --blob-purple: #a78bfa;
+  --blob-green:  #34d399;
+  --blob-pink:   #f472b6;
+}
+
+/* When <html class="dark"> is set, these override the above */
+.dark {
+  --bg: #0b1020;   /* deep indigo/navy */
+  --fg: #cbd5e1;   /* gray-200 */
+
+  /* Blob colors (dark) */
+  --blob-purple: #7c6ee6;
+  --blob-green:  #1fa37d;
+  --blob-pink:   #e351a9;
+}
+
+/* Base document styles */
+html, body { height: 100%; }
+body {
+  background: var(--bg);
+  color: var(--fg);
+}
+
+/* Container matches your layout width */
+.container { @apply max-w-5xl mx-auto px-4; }
+
+/* Blob animation (optional if you’re using Framer parallax) */
+@keyframes blobFloat {
+  0%   { transform: translate(0, 0) scale(1); }
+  33%  { transform: translate(10px, -20px) scale(1.05); }
+  66%  { transform: translate(-10px, 10px) scale(0.98); }
+  100% { transform: translate(0, 0) scale(1); }
+}
+
+/* Background blob wrapper centered on content width */
+.bg-blobs {
+  position: fixed;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(var(--content-width), 92vw);
+  height: 100vh;
+  pointer-events: none;
+  overflow: visible;
+}
+
+/* If you use non-Framer blobs, keep these */
+.bg-blobs > div {
+  filter: blur(40px);
+  opacity: 0.35;
+  animation: blobFloat 12s infinite ease-in-out;
+}
+@layer components {
+  .glass {
+    @apply rounded-2xl border ring-1 backdrop-blur-md
+           bg-white/60 border-white/40 ring-slate-200/50
+           dark:bg-white/10 dark:border-white/10 dark:ring-white/10;
+  }
+  .input-glass {
+    @apply w-full px-3 py-2 rounded-xl border
+           bg-white/70 border-white/40
+           dark:bg-white/10 dark:border-white/10
+           outline-none focus:ring-2 focus:ring-indigo-500/70;
+  }
+  .btn-glass {
+    @apply px-5 py-2 rounded-2xl border
+           bg-white/60 border-white/40
+           dark:bg-white/10 dark:border-white/10
+           transition transform hover:-translate-y-0.5 active:translate-y-0.5 active:scale-95;
+  }
+}
