@@ -14,13 +14,20 @@ export default function Page() {
       <section className="text-center space-y-4">
         {/* Profile image */}
         <div className="flex justify-center">
-          <Image
-            src="/me.jpeg"
-            alt="Garrett Curtis"
-            width={160}
-            height={160}
-            className="rounded-full object-cover border shadow-md"
-          />
+          <Link
+            href="https://youtu.be/Aq5WXmQQooo?si=he-LD_B8LM-beBZp"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-block transition-transform duration-200 hover:scale-105 active:scale-95"
+          >
+            <Image
+              src="/me.jpeg"
+              alt="Garrett Curtis"
+              width={160}
+              height={160}
+              className="rounded-full object-cover border shadow-md hover:shadow-lg transition-shadow duration-200 cursor-pointer"
+            />
+          </Link>
         </div>
       </section>
 
