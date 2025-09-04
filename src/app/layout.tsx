@@ -5,6 +5,7 @@ import { Nav } from "@/components/Nav";
 import { Footer } from "@/components/Footer";
 import RouteTransition from "@/components/RouteTransition";
 import BackgroundBlobs from "@/components/BackgroundBlobs";
+import { Analytics } from "@vercel/analytics/next"
 
 export const metadata: Metadata = { title: "Garrett Curtis — Portfolio", description: "…" };
 
