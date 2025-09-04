@@ -51,5 +51,4 @@ package.json
 
 ---
 
-Built by Kevin (ChatGPT) with ❤️ for Garrett.
 # garrettcurtis.tech
