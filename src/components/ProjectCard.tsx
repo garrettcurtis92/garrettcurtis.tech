@@ -45,52 +45,56 @@ export function ProjectCard({ project }: { project: Project }) {
   const tone = project.tone ?? "neutral";
 
   return (
-    <GlassCard tone={tone}>
-      {project.image ? (
-        <div className="relative h-44">
-          <Image src={project.image} alt={project.title} fill className="object-cover" />
-        </div>
-      ) : null}
+    <Link
+      href={project.repo}
+      target="_blank"
+      rel="noreferrer"
+      className="block group"
+    >
+      <GlassCard tone={tone}>
+        {project.image ? (
+          <div className="relative h-44">
+            <Image src={project.image} alt={project.title} fill className="object-cover" />
+          </div>
+        ) : null}
 
-      <div className="p-5 space-y-3">
-        <h3 className="text-xl font-semibold text-slate-900 dark:text-slate-200">
-          {project.title}
-        </h3>
-        <p className="text-sm text-slate-700 dark:text-slate-300">
-          {project.summary}
-        </p>
-        <div className="flex flex-wrap gap-2">
-          {project.tech.map((t) => (
-            <span
-              key={t}
-              className="px-2 py-1 rounded-full border text-xs bg-white/60 border-white/40
-                         dark:bg-white/10 dark:border-white/10 dark:text-slate-300"
-            >
-              {t}
+        <div className="p-5 space-y-3">
+          <h3 className="text-xl font-semibold text-slate-900 dark:text-slate-200 group-hover:text-slate-700 dark:group-hover:text-slate-100 transition-colors">
+            {project.title}
+          </h3>
+          <p className="text-sm text-slate-700 dark:text-slate-300">
+            {project.summary}
+          </p>
+          <div className="flex flex-wrap gap-2">
+            {project.tech.map((t) => (
+              <span
+                key={t}
+                className="px-2 py-1 rounded-full border text-xs bg-white/60 border-white/40
+                           dark:bg-white/10 dark:border-white/10 dark:text-slate-300"
+              >
+                {t}
+              </span>
+            ))}
+          </div>
+          <div className="flex gap-3 pt-2">
+            {project.demo && (
+              <span
+                className="underline text-slate-800 dark:text-slate-200"
+                onClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  window.open(project.demo, '_blank', 'noopener,noreferrer');
+                }}
+              >
+                Demo
+              </span>
+            )}
+            <span className="underline text-slate-800 dark:text-slate-200">
+              GitHub →
             </span>
-          ))}
+          </div>
         </div>
-        <div className="flex gap-3 pt-2">
-          {project.demo && (
-            <Link
-              href={project.demo}
-              className="underline text-slate-800 dark:text-slate-200"
-              target="_blank"
-              rel="noreferrer"
-            >
-              Demo
-            </Link>
-          )}
-          <Link
-            href={project.repo}
-            className="underline text-slate-800 dark:text-slate-200"
-            target="_blank"
-            rel="noreferrer"
-          >
-            GitHub
-          </Link>
-        </div>
-      </div>
-    </GlassCard>
+      </GlassCard>
+    </Link>
   );
 }
