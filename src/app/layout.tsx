@@ -12,10 +12,10 @@ export const metadata: Metadata = { title: "Garrett Curtis — Portfolio", descr
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body className="min-h-screen flex flex-col">
+      <body className="min-h-screen flex flex-col overflow-visible">
         <BackgroundBlobs variant="home" />
         <Nav />
-        <main className="container flex-1 py-10 overflow-visible">
+        <main className="container py-10 overflow-visible">
           <RouteTransition>{children}</RouteTransition>
         </main>
         <Footer />
