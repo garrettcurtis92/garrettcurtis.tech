@@ -17,8 +17,7 @@ declare global {
       torusGeometry: any;
       cylinderGeometry: any;
       ringGeometry: any;
-      cylinderGeometry: any;
-      ringGeometry: any;
+      dodecahedronGeometry: any;
       meshStandardMaterial: any;
       meshBasicMaterial: any;
       float: any;

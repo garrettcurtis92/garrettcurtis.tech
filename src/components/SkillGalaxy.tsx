@@ -1,13 +1,16 @@
 /// <reference types="@react-three/fiber" />
 "use client";
 
-import { Canvas, useFrame } from "@react-three/fiber";
+import { Canvas, useFrame, extend } from "@react-three/fiber";
 import "@react-three/fiber";
 import { OrbitControls, Text, Points, PointMaterial } from "@react-three/drei";
 import { useMemo, useRef, useState } from "react";
 import * as THREE from "three";
 
-// Extend JSX.IntrinsicElements for React Three Fiber
+// Extend React Three Fiber with additional geometries
+extend({ ConeGeometry: THREE.ConeGeometry });
+extend({ CylinderGeometry: THREE.CylinderGeometry });
+extend({ RingGeometry: THREE.RingGeometry });
 declare module 'react' {
   namespace JSX {
     interface IntrinsicElements {
@@ -107,10 +110,10 @@ function SkillNode({ skill }: { skill: Skill }) {
         {skill.shape === "box" && <boxGeometry args={[0.7, 0.7, 0.7]} />}
         {skill.shape === "torus" && <torusGeometry args={[0.55, 0.16, 16, 64]} />}
         {skill.shape === "dodeca" && <dodecahedronGeometry args={[0.55, 0]} />}
-        {skill.shape === "cone" && <coneGeometry args={[0.5, 1, 32]} />}
-        {skill.shape === "donut" && <torusGeometry args={[0.6, 0.2, 16, 64]} />}
-        {skill.shape === "tube" && <cylinderGeometry args={[0.3, 0.3, 1.2, 32]} />}
-        {skill.shape === "ring" && <ringGeometry args={[0.3, 0.7, 32]} />}
+        {skill.shape === "cone" && <primitive object={new THREE.ConeGeometry(0.5, 1, 32)} />}
+        {skill.shape === "donut" && <primitive object={new THREE.TorusGeometry(0.6, 0.2, 16, 64)} />}
+        {skill.shape === "tube" && <primitive object={new THREE.CylinderGeometry(0.3, 0.3, 1.2, 32)} />}
+        {skill.shape === "ring" && <primitive object={new THREE.RingGeometry(0.3, 0.7, 32)} />}
 
         <meshStandardMaterial
           color={color}
