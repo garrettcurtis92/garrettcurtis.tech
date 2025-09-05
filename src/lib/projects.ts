@@ -10,15 +10,22 @@ export const projects = [
     image: "",
   },
   {
-    slug: "staywise",
-    title: "StayWise (Airbnb-style Clone)",
-    summary:
-      "Next.js + Tailwind app exploring maps, auth, and listings workflow. Focus on production-grade UI and DX.",
-    tech: ["Next.js", "Tailwind", "PostgreSQL", "Prisma"],
-    demo: "",
-    repo: "https://github.com/garrettcurtis92",
-    image: "",
-  },
+  slug: "czk-oktoberfest",
+  title: "CZK Oktoberfest",
+  summary:
+    "A family event web app with live score tracking, interactive schedule, and admin controls.",
+  tech: [
+    "Next.js 15",
+    "Tailwind CSS",
+    "Drizzle ORM",
+    "Vercel Postgres"
+    
+  ],
+  demo: "https://czk-oktoberfest.vercel.app", // your deployed Vercel link
+  repo: "https://github.com/garrettcurtis92/czk-oktoberfest",
+  tone: "neutral"
+}
+  ,
   {
     slug: "automation-tool",
     title: "Google Workspace Helper",
@@ -63,15 +70,15 @@ export const projects = [
   tone: "purple"
 },
 {
-  slug: "czk-oktoberfest",
-  title: "CZK Oktoberfest",
-  summary:
-    "A celebration of Czech culture and Oktoberfest traditions, featuring interactive elements and cultural content.",
-  tech: ["JavaScript", "CSS", "HTML"],
-  demo: "", // add deployed link if available
-  repo: "https://github.com/garrettcurtis92/czk-oktoberfest",
-  image: "", // add screenshot if you have one
-  tone: "neutral"
-}
+    slug: "staywise",
+    title: "StayWise (Airbnb-style Clone)",
+    summary:
+      "Next.js + Tailwind app exploring maps, auth, and listings workflow. Focus on production-grade UI and DX.",
+    tech: ["Next.js", "Tailwind", "PostgreSQL", "Prisma"],
+    demo: "",
+    repo: "https://github.com/garrettcurtis92",
+    image: "",
+  }
+
 
 ];
