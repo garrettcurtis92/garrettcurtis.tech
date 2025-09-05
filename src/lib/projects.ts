@@ -61,6 +61,17 @@ export const projects = [
   repo: "https://github.com/garrettcurtis92/RebeccaKellyPhotography",
   image: "", // add screenshot if you have one
   tone: "purple"
+},
+{
+  slug: "czk-oktoberfest",
+  title: "CZK Oktoberfest",
+  summary:
+    "A celebration of Czech culture and Oktoberfest traditions, featuring interactive elements and cultural content.",
+  tech: ["JavaScript", "CSS", "HTML"],
+  demo: "", // add deployed link if available
+  repo: "https://github.com/garrettcurtis92/czk-oktoberfest",
+  image: "", // add screenshot if you have one
+  tone: "neutral"
 }
 
 ];
