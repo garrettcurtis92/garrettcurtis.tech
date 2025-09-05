@@ -7,14 +7,14 @@ import SkillGalaxy from "@/components/SkillGalaxy";
 
 export default function Page() {
   return (
-    <div className="relative space-y-10 overflow-visible pb-8 md:pb-32">
+    <div className="relative space-y-10 overflow-visible pb-12 md:pb-32">
       <BackgroundBlobs variant="home" />
       
       {/* Full-page 3D background */}
       <SkillGalaxy />
 
       {/* Your sections go here */}
-<div className="space-y-10 relative z-10 mt-16 md:mt-24">
+<div className="space-y-10 relative z-10 mt-36 md:mt-32">
       <section className="text-center space-y-4">
         {/* Profile image */}
         <div className="flex justify-center relative z-20">
