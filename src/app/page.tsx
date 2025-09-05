@@ -14,7 +14,7 @@ export default function Page() {
       <SkillGalaxy />
 
       {/* Your sections go here */}
-<div className="space-y-10 relative z-10">
+<div className="space-y-10 relative z-10 mt-16 md:mt-24">
       <section className="text-center space-y-4">
         {/* Profile image */}
         <div className="flex justify-center relative z-20">
