@@ -1,5 +1,16 @@
 export const projects = [
   {
+    slug: "thehouse",
+    title: "The House Ministry RSVP & SMS Platform",
+    summary:
+      "Event RSVP and engagement platform with Twilio-powered SMS updates, donor funnel, and Postgres persistence for attendee tracking.",
+    tech: ["Next.js", "Tailwind", "Twilio", "PostgreSQL"],
+    demo: "https://thehouseministry.life",
+    repo: "https://github.com/garrettcurtis92/thehouse",
+    tone: "purple",
+    image: "/thehouseministry.jpg", // add screenshot when available
+  },
+  {
     slug: "workorders",
     title: "WorkOrders (C#/.NET Razor Pages)",
     summary:
@@ -7,7 +18,7 @@ export const projects = [
     tech: ["C#", ".NET", "Razor Pages", "EF Core"],
     demo: "", // optional: host or add a video link
     repo: "https://github.com/garrettcurtis92/WorkOrders",
-    image: "",
+    image: "/WorkOrders.jpg",
   },
   {
   slug: "czk-oktoberfest",
@@ -23,19 +34,33 @@ export const projects = [
   ],
   demo: "https://czk-oktoberfest.vercel.app", // your deployed Vercel link
   repo: "https://github.com/garrettcurtis92/czk-oktoberfest",
-  tone: "neutral"
+  tone: "neutral",
+  image: "/Oktoberfest.png"
+
 }
   ,
   {
-    slug: "automation-tool",
-    title: "Google Workspace Helper",
+    slug: "staywise",
+    title: "StayWise (Airbnb-style Clone)",
     summary:
-      "Small Node.js utility to automate repetitive user/channel setup tasks. Practical, script-first engineering.",
-    tech: ["Node.js", "Google APIs"],
+      "Next.js + Tailwind app exploring maps, auth, and listings workflow. Focus on production-grade UI and DX.",
+    tech: ["Next.js", "Tailwind", "PostgreSQL", "Prisma"],
     demo: "",
     repo: "https://github.com/garrettcurtis92",
-    image: "",
+    image: "/StayWise.png",
   },
+  {
+    slug: "liftos",
+    title: "LiftOS (iOS Hypertrophy App)",
+    summary:
+      "Mobile-focused hypertrophy training tracker with progressive overload planning, workout history, and configurable routines.",
+    tech: ["Swift", "SwiftUI", "CloudKit", "CoreData"],
+    demo: "",
+    repo: "https://github.com/garrettcurtis92/LiftOS",
+    image: "/LiftOS.png",
+    tone: "green",
+  },
+
   {
   slug: "movie-search",
   title: "Movie Search",
@@ -44,20 +69,10 @@ export const projects = [
   tech: ["JavaScript", "CSS", "HTML", "OMDb/TMDb API"],
   demo: "", // optional: add your deployed URL here
   repo: "https://github.com/garrettcurtis92/movie-search",
-  image: "", // optional: e.g. "/projects/movie-search.png"
+  image: "/movie-search.png", // optional: e.g. "/projects/movie-search.png"
   tone: "pink", // choose "purple" | "green" | "pink" | "neutral"
 },
-{
-  slug: "premium-weather-app",
-  title: "Premium Weather App",
-  summary:
-    "A polished weather dashboard with location search, real-time API data, and clean responsive UI design.",
-  tech: ["Next.js", "React", "TypeScript", "Tailwind", "Weather API"],
-  demo: "", // add deployed link if available
-  repo: "https://github.com/garrettcurtis92/premium-weather-app",
-  image: "", // add screenshot if you have one
-  tone: "green", // matches your green blob
-},
+
 {
   slug: "rebecca-kelly-photography",
   title: "Rebecca Kelly Photography",
@@ -66,19 +81,7 @@ export const projects = [
   tech: ["JavaScript", "CSS", "HTML", "Image Optimization"],
   demo: "", // add deployed link if available
   repo: "https://github.com/garrettcurtis92/RebeccaKellyPhotography",
-  image: "", // add screenshot if you have one
+  image: "/RebeccaKelly.png", // add screenshot if you have one
   tone: "purple"
 },
-{
-    slug: "staywise",
-    title: "StayWise (Airbnb-style Clone)",
-    summary:
-      "Next.js + Tailwind app exploring maps, auth, and listings workflow. Focus on production-grade UI and DX.",
-    tech: ["Next.js", "Tailwind", "PostgreSQL", "Prisma"],
-    demo: "",
-    repo: "https://github.com/garrettcurtis92",
-    image: "",
-  }
-
-
 ];

@@ -7,7 +7,7 @@ import SkillGalaxy from "@/components/SkillGalaxy";
 
 export default function Page() {
   return (
-    <div className="relative space-y-10 overflow-visible pb-12 md:pb-32">
+    <div className="relative space-y-10 overflow-visible pb-36 md:pb-40">
       <BackgroundBlobs variant="home" />
       
       {/* Full-page 3D background */}
