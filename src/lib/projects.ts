@@ -49,9 +49,6 @@ export const projects = [
     "TypeScript",
     "Tailwind CSS",
     "shadcn/ui",
-    "Framer Motion",
-    "date-fns-tz",
-    "Vercel"
   ],
   demo: "https://alpha-christians.vercel.app/", // add deployed link when available
   repo: "https://github.com/garrettcurtis92/alpha-christians", // add repo link when available
