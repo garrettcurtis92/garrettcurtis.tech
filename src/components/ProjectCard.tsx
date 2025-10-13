@@ -55,7 +55,7 @@ export function ProjectCard({ project }: { project: Project }) {
     >
       <GlassCard tone={tone}>
         {project.image ? (
-          <div className="relative h-44">
+          <div className="relative h-44 overflow-hidden rounded-t-2xl">
             <Image src={project.image} alt={project.title} fill className="object-cover" />
           </div>
         ) : null}
