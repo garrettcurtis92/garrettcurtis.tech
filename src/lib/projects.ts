@@ -53,9 +53,9 @@ export const projects = [
     "date-fns-tz",
     "Vercel"
   ],
-  demo: "", // add deployed link when available
-  repo: "", // add repo link when available
-  image: "", // add image when available
+  demo: "https://alpha-christians.vercel.app/", // add deployed link when available
+  repo: "https://github.com/garrettcurtis92/alpha-christians", // add repo link when available
+  image: "/alpha-christians.png", // add image when available
   tone: "neutral"
 },
   {
