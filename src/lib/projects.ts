@@ -40,15 +40,24 @@ export const projects = [
 }
   ,
   {
-    slug: "staywise",
-    title: "StayWise (Airbnb-style Clone)",
-    summary:
-      "Next.js + Tailwind app exploring maps, auth, and listings workflow. Focus on production-grade UI and DX.",
-    tech: ["Next.js", "Tailwind", "PostgreSQL", "Prisma"],
-    demo: "",
-    repo: "https://github.com/garrettcurtis92",
-    image: "/StayWise.png",
-  },
+  slug: "alpha-christians",
+  title: "Alpha Christians",
+  summary:
+    "A modern, mobile-first site for a men's Bible study with a cinematic hero, weekly countdown, resources hub (Livestream, Replays, Notes), monthly BBQ callout, and SEO-ready event data.",
+  tech: [
+    "Next.js 15 (App Router)",
+    "TypeScript",
+    "Tailwind CSS",
+    "shadcn/ui",
+    "Framer Motion",
+    "date-fns-tz",
+    "Vercel"
+  ],
+  demo: "", // add deployed link when available
+  repo: "", // add repo link when available
+  image: "", // add image when available
+  tone: "neutral"
+},
   {
     slug: "liftos",
     title: "LiftOS (iOS Hypertrophy App)",
@@ -62,16 +71,15 @@ export const projects = [
   },
 
   {
-  slug: "movie-search",
-  title: "Movie Search",
-  summary:
-    "Search and explore films with instant results and details — a small API-integration app showcasing async data fetching and clean UI.",
-  tech: ["JavaScript", "CSS", "HTML", "OMDb/TMDb API"],
-  demo: "", // optional: add your deployed URL here
-  repo: "https://github.com/garrettcurtis92/movie-search",
-  image: "/movie-search.png", // optional: e.g. "/projects/movie-search.png"
-  tone: "pink", // choose "purple" | "green" | "pink" | "neutral"
-},
+    slug: "staywise",
+    title: "StayWise (Airbnb-style Clone)",
+    summary:
+      "Next.js + Tailwind app exploring maps, auth, and listings workflow. Focus on production-grade UI and DX.",
+    tech: ["Next.js", "Tailwind", "PostgreSQL", "Prisma"],
+    demo: "",
+    repo: "https://github.com/garrettcurtis92",
+    image: "/StayWise.png",
+  },
 
 {
   slug: "rebecca-kelly-photography",
