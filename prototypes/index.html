@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Prototype lanes · garrettcurtis.tech rebuild</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,400..700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg:           oklch(0.97 0.005 60);
+    --surface:      oklch(0.94 0.008 55);
+    --surface-2:    oklch(0.91 0.010 55);
+    --text:         oklch(0.20 0.010 55);
+    --text-muted:   oklch(0.45 0.008 55);
+    --border:       oklch(0.85 0.008 55);
+    --border-soft:  oklch(0.91 0.006 55);
+    --accent:       oklch(0.60 0.15 38);
+    --focus-ring:   oklch(0.60 0.15 38 / 0.40);
+    color-scheme: light;
+  }
+  [data-theme="dark"] {
+    --bg:           oklch(0.16 0.008 55);
+    --surface:      oklch(0.21 0.010 55);
+    --surface-2:    oklch(0.25 0.010 55);
+    --text:         oklch(0.95 0.005 60);
+    --text-muted:   oklch(0.70 0.008 55);
+    --border:       oklch(0.30 0.010 55);
+    --border-soft:  oklch(0.24 0.008 55);
+    --accent:       oklch(0.70 0.16 40);
+    --focus-ring:   oklch(0.70 0.16 40 / 0.45);
+    color-scheme: dark;
+  }
+
+  * { box-sizing: border-box; }
+  html { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+
+  body {
+    margin: 0;
+    min-height: 100vh;
+    background: var(--bg);
+    color: var(--text);
+    font-family: "Bricolage Grotesque", system-ui, sans-serif;
+    font-size: 1rem;
+    line-height: 1.55;
+    transition: background-color 280ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .mono { font-family: "JetBrains Mono", ui-monospace, monospace; }
+
+  .wrap {
+    max-width: 920px;
+    margin: 0 auto;
+    padding: 4rem 1.5rem 6rem;
+  }
+
+  .meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2.5rem;
+    gap: 1rem;
+  }
+  .meta .label {
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .theme-toggle {
+    appearance: none;
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+    border-radius: 999px;
+    padding: 0.4rem 0.85rem;
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-size: 0.78rem;
+    cursor: pointer;
+  }
+  .theme-toggle:hover { color: var(--text); border-color: var(--text-muted); }
+
+  h1 {
+    font-family: "Bricolage Grotesque";
+    font-weight: 600;
+    font-variation-settings: "wdth" 88;
+    font-size: clamp(2.25rem, 4vw + 1rem, 3.5rem);
+    line-height: 1.05;
+    letter-spacing: -0.025em;
+    margin: 0 0 0.5rem;
+    max-width: 18ch;
+  }
+  h1 .accent { color: var(--accent); }
+
+  .lede {
+    font-size: 1.0625rem;
+    color: var(--text-muted);
+    margin: 0 0 3rem;
+    max-width: 56ch;
+    line-height: 1.6;
+  }
+
+  .lanes {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+  }
+
+  @media (max-width: 720px) {
+    .lanes { grid-template-columns: 1fr; }
+  }
+
+  .lane-card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    padding: 1.75rem;
+    background: var(--surface);
+    border: 1px solid var(--border-soft);
+    border-radius: 14px;
+    text-decoration: none;
+    color: inherit;
+    transition: border-color 280ms cubic-bezier(0.16, 1, 0.3, 1),
+                background-color 280ms cubic-bezier(0.16, 1, 0.3, 1),
+                transform 280ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .lane-card:hover {
+    border-color: var(--accent);
+    background: var(--surface-2);
+    transform: translateY(-2px);
+  }
+  .lane-card:focus-visible {
+    outline: 2px solid var(--focus-ring);
+    outline-offset: 2px;
+  }
+
+  .lane-card .tag {
+    align-self: flex-start;
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--accent);
+    border: 1px solid var(--accent);
+    border-radius: 999px;
+    padding: 0.18rem 0.55rem;
+  }
+
+  .lane-card h2 {
+    font-family: "Bricolage Grotesque";
+    font-size: 1.5rem;
+    font-weight: 600;
+    font-variation-settings: "wdth" 90;
+    letter-spacing: -0.015em;
+    margin: 0;
+    line-height: 1.15;
+  }
+
+  .lane-card .summary {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    line-height: 1.55;
+    margin: 0;
+    flex: 1;
+  }
+
+  .lane-card .stack {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    padding-top: 0.5rem;
+    border-top: 1px solid var(--border-soft);
+  }
+  .lane-card .stack span:not(:last-child)::after {
+    content: " / ";
+    color: var(--border);
+    margin-left: 0.4rem;
+  }
+
+  .lane-card .cta {
+    color: var(--text);
+    font-weight: 500;
+    font-size: 0.95rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    margin-top: 0.25rem;
+  }
+  .lane-card:hover .cta { color: var(--accent); }
+  .lane-card .arrow { transition: transform 280ms cubic-bezier(0.16, 1, 0.3, 1); }
+  .lane-card:hover .arrow { transform: translateX(3px); }
+
+  .footnote {
+    margin-top: 3rem;
+    color: var(--text-muted);
+    font-size: 0.82rem;
+    line-height: 1.6;
+    border-top: 1px solid var(--border-soft);
+    padding-top: 1.5rem;
+  }
+  .footnote .mono { color: var(--text); }
+</style>
+</head>
+<body>
+  <div class="wrap">
+
+    <div class="meta">
+      <div class="label">prototype index · rebuild/v2</div>
+      <button class="theme-toggle" id="themeToggle" type="button" aria-label="Toggle theme">
+        <span id="themeLabel">dark</span>
+      </button>
+    </div>
+
+    <h1>Two lanes for the rebuild<span class="accent">.</span></h1>
+    <p class="lede">
+      Both prototypes share the same hero copy, accent color, spacing system, and content. The only thing that varies is the aesthetic lane. Click into either, flip dark/light, scroll to the bottom. Use the lane bar at the top of each to switch.
+    </p>
+
+    <div class="lanes">
+
+      <a href="./lane-a.html" class="lane-card">
+        <span class="tag">Lane A</span>
+        <h2>Considered-builder spec sheet</h2>
+        <p class="summary">
+          Single variable sans does display and body via width axis. Tightest, most cohesive system. Lowest font load. Lowest risk of drifting editorial. The whole site speaks in one voice with weight + width contrast doing the hierarchy work.
+        </p>
+        <div class="stack">
+          <span>Bricolage Grotesque</span>
+          <span>JetBrains Mono</span>
+          <span>ember accent</span>
+        </div>
+        <span class="cta">Open Lane A <span class="arrow">→</span></span>
+      </a>
+
+      <a href="./lane-b.html" class="lane-card">
+        <span class="tag">Lane B</span>
+        <h2>Warm editorial (without the magazine trap)</h2>
+        <p class="summary">
+          Sans for chrome, serif for editorial moments. The case studies and side-project feature read like writing, not content. Hero stays sans to avoid the magazine cosplay reflex. More texture, more judgment required, more differentiation.
+        </p>
+        <div class="stack">
+          <span>Spectral</span>
+          <span>Hanken Grotesk</span>
+          <span>JetBrains Mono</span>
+          <span>ember accent</span>
+        </div>
+        <span class="cta">Open Lane B <span class="arrow">→</span></span>
+      </a>
+
+    </div>
+
+    <div class="footnote">
+      <p>
+        Both lanes use the same ember accent at <span class="mono">oklch(0.60 0.15 38)</span> in light mode and <span class="mono">oklch(0.70 0.16 40)</span> in dark mode, so the comparison stays clean. The lane decision is font + the editorial vs. unified voice question. Accent hue can be re-tuned independently after the lane is picked.
+      </p>
+    </div>
+
+  </div>
+
+  <script>
+    const root = document.documentElement;
+    const btn  = document.getElementById('themeToggle');
+    const lbl  = document.getElementById('themeLabel');
+    const applied = () => root.getAttribute('data-theme') || 'light';
+    const refresh = () => { lbl.textContent = applied() === 'light' ? 'dark' : 'light'; };
+    btn.addEventListener('click', () => {
+      root.setAttribute('data-theme', applied() === 'light' ? 'dark' : 'light');
+      refresh();
+    });
+    refresh();
+  </script>
+</body>
+</html>

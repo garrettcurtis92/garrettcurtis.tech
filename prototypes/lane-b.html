@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Lane B — Warm editorial (without the magazine trap) | garrettcurtis.tech</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700&family=Spectral:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    /* Light mode — warm-tinted neutrals + ember accent (same as Lane A so the comparison is fair) */
+    --bg:           oklch(0.97 0.005 60);
+    --surface:      oklch(0.94 0.008 55);
+    --surface-2:    oklch(0.91 0.010 55);
+    --text:         oklch(0.20 0.010 55);
+    --text-muted:   oklch(0.45 0.008 55);
+    --border:       oklch(0.85 0.008 55);
+    --border-soft:  oklch(0.91 0.006 55);
+    --accent:       oklch(0.60 0.15 38);
+    --accent-fg:    oklch(0.97 0.005 60);
+    --focus-ring:   oklch(0.60 0.15 38 / 0.40);
+
+    --serif: "Spectral", "Iowan Old Style", Georgia, serif;
+    --sans:  "Hanken Grotesk", system-ui, -apple-system, "Segoe UI", sans-serif;
+    --mono:  "JetBrains Mono", ui-monospace, monospace;
+
+    --step-0:   1rem;
+    --step-1:   1.125rem;
+    --step-2:   1.5rem;
+    --step-3:   2rem;
+    --step-4:   2.667rem;
+    --display:  clamp(3.25rem, 7vw + 1rem, 6.25rem);
+
+    --gap-1: 0.5rem;
+    --gap-2: 0.875rem;
+    --gap-3: 1.25rem;
+    --gap-4: 2rem;
+    --gap-5: 3.5rem;
+    --gap-6: 5.5rem;
+    --gap-7: 8rem;
+
+    --measure: 64ch;
+    --container: 1100px;
+
+    --radius-sm: 6px;
+    --radius:    12px;
+    --radius-lg: 18px;
+
+    --transition: 280ms cubic-bezier(0.16, 1, 0.3, 1);
+
+    color-scheme: light;
+  }
+
+  [data-theme="dark"] {
+    --bg:           oklch(0.16 0.008 55);
+    --surface:      oklch(0.21 0.010 55);
+    --surface-2:    oklch(0.25 0.010 55);
+    --text:         oklch(0.95 0.005 60);
+    --text-muted:   oklch(0.70 0.008 55);
+    --border:       oklch(0.30 0.010 55);
+    --border-soft:  oklch(0.24 0.008 55);
+    --accent:       oklch(0.70 0.16 40);
+    --accent-fg:    oklch(0.16 0.008 55);
+    --focus-ring:   oklch(0.70 0.16 40 / 0.45);
+    color-scheme: dark;
+  }
+
+  * { box-sizing: border-box; }
+
+  html { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    font-size: var(--step-0);
+    line-height: 1.6;
+    font-weight: 400;
+    transition: background-color var(--transition), color var(--transition);
+  }
+
+  .mono { font-family: var(--mono); }
+  .serif { font-family: var(--serif); }
+
+  ::selection {
+    background: var(--accent);
+    color: var(--accent-fg);
+  }
+
+  /* ───── Lane switcher (prototype-only chrome) ────────────────────── */
+
+  .lane-bar {
+    background: var(--surface);
+    border-bottom: 1px solid var(--border-soft);
+    padding: 0.5rem var(--gap-4);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    backdrop-filter: blur(8px);
+  }
+  .lane-bar-label {
+    color: var(--text-muted);
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-right: 0.25rem;
+  }
+  .lane-link {
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    text-decoration: none;
+    padding: 0.3rem 0.6rem;
+    border-radius: 999px;
+    border: 1px solid transparent;
+    transition: color var(--transition), border-color var(--transition), background-color var(--transition);
+  }
+  .lane-link:hover { color: var(--text); border-color: var(--border-soft); }
+  .lane-link.active {
+    color: var(--accent);
+    border-color: var(--accent);
+  }
+  .lane-link:focus-visible { outline: 2px solid var(--focus-ring); outline-offset: 2px; }
+
+  /* ───── Header ───────────────────────────────────────────────────── */
+
+  header.site {
+    max-width: var(--container);
+    margin: 0 auto;
+    padding: var(--gap-4) var(--gap-4) 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--gap-3);
+  }
+
+  .brand {
+    font-family: var(--sans);
+    font-weight: 600;
+    font-size: var(--step-1);
+    letter-spacing: -0.005em;
+    color: var(--text);
+    text-decoration: none;
+  }
+  .brand .dot { color: var(--accent); }
+
+  nav.primary {
+    display: flex;
+    gap: var(--gap-3);
+    align-items: center;
+  }
+  nav.primary a {
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: 500;
+    padding: 0.4rem 0.6rem;
+    border-radius: var(--radius-sm);
+    transition: color var(--transition);
+  }
+  nav.primary a:hover { color: var(--text); }
+  nav.primary a:focus-visible { outline: 2px solid var(--focus-ring); outline-offset: 2px; }
+
+  .theme-toggle {
+    appearance: none;
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+    border-radius: 999px;
+    padding: 0.45rem 0.85rem;
+    font-family: var(--mono);
+    font-size: 0.85rem;
+    font-weight: 500;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: border-color var(--transition), color var(--transition);
+  }
+  .theme-toggle:hover { color: var(--text); border-color: var(--text-muted); }
+  .theme-toggle:focus-visible { outline: 2px solid var(--focus-ring); outline-offset: 2px; }
+
+  /* ───── Hero — sans, not serif (avoids the magazine trap) ────────── */
+
+  .hero {
+    max-width: var(--container);
+    margin: 0 auto;
+    padding: var(--gap-6) var(--gap-4) var(--gap-5);
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: end;
+    gap: var(--gap-4);
+  }
+
+  .hero h1 {
+    font-family: var(--sans);
+    font-size: var(--display);
+    font-weight: 700;
+    line-height: 1.0;
+    letter-spacing: -0.025em;
+    margin: 0;
+    max-width: 14ch;
+    color: var(--text);
+  }
+  .hero h1 .accent { color: var(--accent); font-weight: 700; }
+
+  .hero .subhead {
+    font-family: var(--serif);
+    margin: var(--gap-3) 0 0;
+    color: var(--text);
+    font-size: clamp(1.125rem, 0.5vw + 1rem, 1.3125rem);
+    line-height: 1.55;
+    max-width: 54ch;
+    font-weight: 400;
+  }
+  .hero .subhead em {
+    font-style: italic;
+    color: var(--text);
+  }
+
+  .hero-meta {
+    align-self: end;
+    color: var(--text-muted);
+    font-family: var(--mono);
+    font-size: 0.82rem;
+    text-align: right;
+    line-height: 1.55;
+  }
+  .hero-meta .now { color: var(--accent); font-weight: 600; }
+  .hero-meta .dim { color: var(--text-muted); opacity: 0.7; }
+
+  /* ───── Section frame ────────────────────────────────────────────── */
+
+  .section {
+    max-width: var(--container);
+    margin: 0 auto;
+    padding: var(--gap-5) var(--gap-4);
+  }
+  .section + .section { padding-top: 0; }
+
+  .section-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-bottom: var(--gap-4);
+    gap: var(--gap-3);
+    padding-bottom: var(--gap-2);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .section-head h2 {
+    font-family: var(--sans);
+    font-size: var(--step-2);
+    font-weight: 600;
+    letter-spacing: -0.015em;
+    margin: 0;
+  }
+
+  .section-head .index {
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    letter-spacing: 0.04em;
+  }
+
+  /* ───── Case study cards — serif headlines, serif lead paragraph ──── */
+
+  .case-list {
+    display: grid;
+    gap: var(--gap-5);
+  }
+
+  .case {
+    display: grid;
+    grid-template-columns: minmax(0, 7fr) minmax(0, 9fr);
+    gap: var(--gap-4);
+    align-items: start;
+    padding: var(--gap-3) 0;
+  }
+  .case:nth-child(even) {
+    grid-template-columns: minmax(0, 9fr) minmax(0, 7fr);
+  }
+  .case:nth-child(even) .case-body { order: 2; }
+  .case:nth-child(even) .case-frame { order: 1; }
+
+  .case-body { padding-top: 0.25rem; }
+
+  .case-eyebrow {
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    color: var(--accent);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-bottom: var(--gap-2);
+  }
+
+  .case h3 {
+    font-family: var(--serif);
+    font-size: var(--step-3);
+    font-weight: 600;
+    line-height: 1.1;
+    letter-spacing: -0.015em;
+    margin: 0 0 var(--gap-2);
+  }
+
+  .case .case-summary {
+    font-family: var(--serif);
+    color: var(--text);
+    font-size: 1.125rem;
+    line-height: 1.6;
+    margin: 0 0 var(--gap-3);
+    max-width: 54ch;
+  }
+  .case .case-summary em { font-style: italic; }
+
+  .case .stack {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem 0.6rem;
+    margin-bottom: var(--gap-3);
+  }
+
+  .tag {
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    background: var(--surface);
+    border: 1px solid var(--border-soft);
+    border-radius: 999px;
+    padding: 0.22rem 0.6rem;
+    line-height: 1.4;
+  }
+
+  .case-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    color: var(--text);
+    font-family: var(--sans);
+    font-weight: 500;
+    font-size: 0.95rem;
+    text-decoration: none;
+    padding-bottom: 1px;
+    border-bottom: 1px solid var(--border);
+    transition: border-color var(--transition), color var(--transition);
+  }
+  .case-cta:hover { color: var(--accent); border-bottom-color: var(--accent); }
+  .case-cta .arrow { transition: transform var(--transition); }
+  .case-cta:hover .arrow { transform: translateX(3px); }
+
+  .case-frame {
+    background: var(--surface);
+    border: 1px solid var(--border-soft);
+    border-radius: var(--radius);
+    aspect-ratio: 16 / 10;
+    overflow: hidden;
+    position: relative;
+    display: grid;
+    place-items: end start;
+    padding: var(--gap-3);
+  }
+  .case-frame.placeholder::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(135deg, transparent 49.6%, var(--border-soft) 49.6%, var(--border-soft) 50.4%, transparent 50.4%),
+      linear-gradient(45deg, transparent 49.6%, var(--border-soft) 49.6%, var(--border-soft) 50.4%, transparent 50.4%);
+    background-size: 40px 40px;
+    opacity: 0.5;
+  }
+  .case-frame.placeholder .label {
+    position: relative;
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    background: var(--bg);
+    border: 1px solid var(--border-soft);
+    padding: 0.25rem 0.55rem;
+    border-radius: var(--radius-sm);
+  }
+
+  /* ───── Case study prose excerpt — proves the editorial voice ───── */
+
+  .prose-excerpt {
+    max-width: var(--container);
+    margin: 0 auto;
+    padding: var(--gap-5) var(--gap-4);
+    background: linear-gradient(to bottom, var(--bg), var(--surface) 30%);
+    border-top: 1px solid var(--border-soft);
+    border-bottom: 1px solid var(--border-soft);
+  }
+  .prose-excerpt .frame {
+    max-width: 65ch;
+    margin: 0 auto;
+  }
+  .prose-excerpt .kicker {
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-bottom: var(--gap-3);
+  }
+  .prose-excerpt h2 {
+    font-family: var(--serif);
+    font-size: var(--step-4);
+    font-weight: 600;
+    line-height: 1.1;
+    letter-spacing: -0.015em;
+    margin: 0 0 var(--gap-2);
+  }
+  .prose-excerpt h3 {
+    font-family: var(--serif);
+    font-size: var(--step-2);
+    font-weight: 600;
+    line-height: 1.2;
+    margin: var(--gap-4) 0 var(--gap-2);
+  }
+  .prose-excerpt p {
+    font-family: var(--serif);
+    font-size: 1.125rem;
+    line-height: 1.65;
+    color: var(--text);
+    margin: 0 0 var(--gap-2);
+  }
+  .prose-excerpt p strong {
+    font-weight: 600;
+  }
+  .prose-excerpt p em {
+    font-style: italic;
+  }
+
+  /* ───── Projects ─────────────────────────────────────────────────── */
+
+  .projects {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: var(--gap-3);
+  }
+
+  .project {
+    grid-column: span 6;
+    background: var(--surface);
+    border: 1px solid var(--border-soft);
+    border-radius: var(--radius);
+    padding: var(--gap-3);
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap-2);
+    transition: border-color var(--transition), background-color var(--transition);
+    text-decoration: none;
+    color: inherit;
+  }
+  .project:hover { border-color: var(--border); background: var(--surface-2); }
+
+  .project.featured {
+    grid-column: span 12;
+    background: var(--surface);
+    padding: var(--gap-4);
+    display: grid;
+    grid-template-columns: minmax(0, 5fr) minmax(0, 4fr);
+    gap: var(--gap-4);
+    align-items: center;
+  }
+
+  .project.featured .project-meta {
+    display: flex; flex-direction: column; gap: var(--gap-2);
+  }
+
+  .project-image {
+    aspect-ratio: 16 / 10;
+    background: var(--bg);
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    border: 1px solid var(--border-soft);
+  }
+  .project.featured .project-image {
+    aspect-ratio: 4 / 5;
+  }
+  .project-image img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+  .project h4 {
+    font-family: var(--sans);
+    font-size: 1.125rem;
+    font-weight: 600;
+    letter-spacing: -0.005em;
+    margin: 0;
+  }
+  .project.featured h4 {
+    font-family: var(--serif);
+    font-size: var(--step-2);
+    line-height: 1.15;
+  }
+
+  .project-summary {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin: 0;
+  }
+  .project.featured .project-summary {
+    font-family: var(--serif);
+    color: var(--text);
+    font-size: 1.0625rem;
+    max-width: 46ch;
+  }
+
+  .featured-badge {
+    align-self: flex-start;
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--accent);
+    border: 1px solid var(--accent);
+    border-radius: 999px;
+    padding: 0.18rem 0.55rem;
+  }
+
+  /* ───── Type spec ────────────────────────────────────────────────── */
+
+  .typespec {
+    display: grid;
+    grid-template-columns: 7rem 1fr;
+    gap: var(--gap-2) var(--gap-3);
+    align-items: baseline;
+    padding: var(--gap-3) 0;
+    border-top: 1px solid var(--border-soft);
+  }
+  .typespec .key {
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    letter-spacing: 0.04em;
+  }
+
+  /* ───── Footer ───────────────────────────────────────────────────── */
+
+  footer.site {
+    max-width: var(--container);
+    margin: var(--gap-6) auto 0;
+    padding: var(--gap-4);
+    border-top: 1px solid var(--border-soft);
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    display: flex;
+    justify-content: space-between;
+    gap: var(--gap-3);
+    flex-wrap: wrap;
+  }
+
+  /* ───── Responsive ───────────────────────────────────────────────── */
+
+  @media (max-width: 720px) {
+    .hero { grid-template-columns: 1fr; padding-top: var(--gap-5); }
+    .hero-meta { text-align: left; }
+    .case, .case:nth-child(even) { grid-template-columns: 1fr; }
+    .case:nth-child(even) .case-body { order: 1; }
+    .case:nth-child(even) .case-frame { order: 2; }
+    .project { grid-column: span 12; }
+    .project.featured { grid-template-columns: 1fr; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      transition-duration: 0.01ms !important;
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+    }
+  }
+</style>
+</head>
+<body>
+
+<div class="lane-bar" role="navigation" aria-label="Prototype lanes">
+  <span class="lane-bar-label mono">prototype</span>
+  <a href="./index.html" class="lane-link">all lanes</a>
+  <a href="./lane-a.html" class="lane-link">A · considered-builder</a>
+  <a href="./lane-b.html" class="lane-link active" aria-current="page">B · warm editorial</a>
+</div>
+
+<header class="site">
+  <a href="#" class="brand">Garrett Curtis<span class="dot">.</span></a>
+  <nav class="primary" aria-label="Primary">
+    <a href="#work">Work</a>
+    <a href="#about">About</a>
+    <a href="#contact">Contact</a>
+    <button class="theme-toggle" id="themeToggle" type="button" aria-label="Toggle theme">
+      <span id="themeLabel">dark</span>
+    </button>
+  </nav>
+</header>
+
+<section class="hero" aria-labelledby="heroH">
+  <div>
+    <h1 id="heroH">AI-native builder<span class="accent">.</span><br/>Full-stack engineer<span class="accent">.</span></h1>
+    <p class="subhead">
+      I ship software. I work with AI like it's a teammate, not a tool, and the result is production systems built faster, with more discipline, and better judgment about <em>when to use AI and when not to.</em>
+    </p>
+  </div>
+  <div class="hero-meta" aria-hidden="true">
+    <div class="now">// now</div>
+    <div>shipping internal tools at CWAN</div>
+    <div class="dim">Boise, ID</div>
+  </div>
+</section>
+
+<section class="section" id="work" aria-labelledby="workH">
+  <div class="section-head">
+    <h2 id="workH">Case studies</h2>
+    <div class="index">02 / featured</div>
+  </div>
+
+  <div class="case-list">
+
+    <article class="case">
+      <div class="case-body">
+        <div class="case-eyebrow">/work/it-helpdesk</div>
+        <h3>AI-Powered IT Helpdesk</h3>
+        <p class="case-summary">
+          A chat-based ticket intake that submits real Jira tickets <em>as the user</em>, with full context, classification, and screenshot analysis built in.
+        </p>
+        <div class="stack">
+          <span class="tag">Next.js 16</span>
+          <span class="tag">Claude Sonnet 4 (vision)</span>
+          <span class="tag">NextAuth v5</span>
+          <span class="tag">Atlassian OAuth 3LO</span>
+          <span class="tag">Microsoft Graph</span>
+        </div>
+        <a class="case-cta" href="#">Read the case study <span class="arrow">→</span></a>
+      </div>
+      <div class="case-frame placeholder" aria-hidden="true">
+        <span class="label">screenshot · production blurred</span>
+      </div>
+    </article>
+
+    <article class="case">
+      <div class="case-body">
+        <div class="case-eyebrow">/work/lawn-games</div>
+        <h3>CWAN Lawn Games 2026</h3>
+        <p class="case-summary">
+          A tournament platform replacing a paper bracket. 50 teams, ~500 viewers, built solo from spec to ship.
+        </p>
+        <div class="stack">
+          <span class="tag">Next.js 16</span>
+          <span class="tag">Server Actions</span>
+          <span class="tag">PostgreSQL + Drizzle</span>
+          <span class="tag">Auth.js v5</span>
+        </div>
+        <a class="case-cta" href="#">Read the case study <span class="arrow">→</span></a>
+      </div>
+      <div class="case-frame placeholder" aria-hidden="true">
+        <span class="label">screenshot · ESPN meets Linear</span>
+      </div>
+    </article>
+
+  </div>
+</section>
+
+<!-- A taste of the case-study INSIDE view — this is where the lane difference is loudest -->
+<section class="prose-excerpt" aria-labelledby="excerptH">
+  <div class="frame">
+    <div class="kicker">/work/it-helpdesk · excerpt</div>
+    <h2 id="excerptH">The hardest part: teaching Claude what it could do</h2>
+    <p>The image pipeline broke in four different places, and each one taught me something.</p>
+    <p>First, the send button silently dropped image-only messages because the handler required text. Fixed.</p>
+    <p>Second, the backend wasn't passing images to Claude, just text. Wired up multipart content blocks. Now Claude could see the image.</p>
+    <p>Third, and this is where it got interesting: Claude could see the image but kept telling users <em>"I'm just an intake assistant, I can't attach files to tickets."</em> The backend attachment pipeline existed. The model didn't know it existed. Two-line fix in the system prompt: <em>"Screenshots shared during the conversation are always attached to the ticket."</em> Suddenly Claude knew what it could do.</p>
+    <p>Fourth, even after that fix, Claude wouldn't <em>volunteer</em> the information. The fix was prompting Claude not just on what was true, but on <em>how to communicate it</em>.</p>
+    <h3>The lesson</h3>
+    <p>The model behaves based on what it believes about itself. There's no debugger for that. When the model says "I can't do that," the bug is in the prompt, not the code.</p>
+  </div>
+</section>
+
+<section class="section" aria-labelledby="sideH">
+  <div class="section-head">
+    <h2 id="sideH">Side projects</h2>
+    <div class="index">07 / shipped</div>
+  </div>
+
+  <div class="projects">
+
+    <a href="#" class="project featured" aria-label="LiftOS">
+      <div class="project-meta">
+        <span class="featured-badge">Featured side project</span>
+        <h4>LiftOS</h4>
+        <p class="project-summary">
+          Native iOS hypertrophy tracker. Progressive overload planning, workout history, configurable routines. Signals iOS range and engineering discipline outside the day job.
+        </p>
+        <div class="stack" style="margin: 0;">
+          <span class="tag">Swift</span>
+          <span class="tag">SwiftUI</span>
+          <span class="tag">CloudKit</span>
+          <span class="tag">CoreData</span>
+        </div>
+      </div>
+      <div class="project-image">
+        <img src="../public/LiftOS.png" alt="LiftOS, iOS hypertrophy tracker, screenshot" />
+      </div>
+    </a>
+
+    <a href="#" class="project" aria-label="Alpha Christians">
+      <div class="project-image">
+        <img src="../public/alpha-christians.png" alt="Alpha Christians site, screenshot" />
+      </div>
+      <h4>Alpha Christians</h4>
+      <p class="project-summary">
+        Mobile-first site for a men's Bible study with a cinematic hero, weekly countdown, resources hub, and SEO-ready event data.
+      </p>
+      <div class="stack" style="margin: 0;">
+        <span class="tag">Next.js 15</span>
+        <span class="tag">TypeScript</span>
+        <span class="tag">Tailwind</span>
+        <span class="tag">shadcn/ui</span>
+      </div>
+    </a>
+
+    <a href="#" class="project" aria-label="The House Ministry">
+      <div class="project-image">
+        <img src="../public/thehouseministry.jpg" alt="The House Ministry RSVP and SMS platform, screenshot" />
+      </div>
+      <h4>The House Ministry</h4>
+      <p class="project-summary">
+        Event RSVP and engagement platform with Twilio-powered SMS updates, donor funnel, and Postgres persistence.
+      </p>
+      <div class="stack" style="margin: 0;">
+        <span class="tag">Next.js</span>
+        <span class="tag">Tailwind</span>
+        <span class="tag">Twilio</span>
+        <span class="tag">PostgreSQL</span>
+      </div>
+    </a>
+
+  </div>
+</section>
+
+<section class="section" aria-labelledby="specH">
+  <div class="section-head">
+    <h2 id="specH">Type spec, for review</h2>
+    <div class="index">debug</div>
+  </div>
+
+  <div>
+    <div class="typespec">
+      <div class="key">hero / sans</div>
+      <div style="font-family: var(--sans); font-size: var(--display); font-weight: 700; line-height: 1.0; letter-spacing: -0.025em;">AI-native builder.</div>
+    </div>
+    <div class="typespec">
+      <div class="key">case h2 / serif</div>
+      <div style="font-family: var(--serif); font-size: var(--step-4); font-weight: 600; line-height: 1.1; letter-spacing: -0.015em;">Decisions I made along the way</div>
+    </div>
+    <div class="typespec">
+      <div class="key">case h3 / serif</div>
+      <div style="font-family: var(--serif); font-size: var(--step-2); font-weight: 600;">The hardest part: teaching Claude</div>
+    </div>
+    <div class="typespec">
+      <div class="key">prose / serif</div>
+      <div style="font-family: var(--serif); font-size: 1.125rem; line-height: 1.65; max-width: 64ch;">Try the right ticket type first, fall back if Jira rejects it. My first version tried to be clever. The simpler approach won.</div>
+    </div>
+    <div class="typespec">
+      <div class="key">ui / sans</div>
+      <div style="font-family: var(--sans);">Used in nav, buttons, project cards, UI chrome.</div>
+    </div>
+    <div class="typespec">
+      <div class="key">muted / sans</div>
+      <div style="font-family: var(--sans); font-size: 0.875rem; color: var(--text-muted);">Posted on 2026-05-20 · 7 min read</div>
+    </div>
+    <div class="typespec">
+      <div class="key">code / mono</div>
+      <div class="mono" style="font-size: 0.9rem;">const ticket = await jira.create({ summary, priority, attachments });</div>
+    </div>
+  </div>
+</section>
+
+<footer class="site">
+  <div>© 2026 Garrett Curtis</div>
+  <div class="mono" style="opacity: 0.7;">Lane B · warm editorial without the magazine trap · v0</div>
+</footer>
+
+<script>
+  const root = document.documentElement;
+  const btn  = document.getElementById('themeToggle');
+  const lbl  = document.getElementById('themeLabel');
+  const applied = () => root.getAttribute('data-theme') || 'light';
+  const refresh = () => { lbl.textContent = applied() === 'light' ? 'dark' : 'light'; };
+  btn.addEventListener('click', () => {
+    const next = applied() === 'light' ? 'dark' : 'light';
+    root.setAttribute('data-theme', next);
+    refresh();
+  });
+  refresh();
+</script>
+</body>
+</html>
