@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { ThemeToggle } from "@/components/theme-toggle";
 
 /**
@@ -9,9 +10,9 @@ export function Header() {
   return (
     <header className="w-full">
       <div className="mx-auto flex max-w-[1100px] items-center justify-between px-4 py-4">
-        <a href="/" className="font-sans text-md font-semibold text-text">
+        <Link href="/" className="font-sans text-md font-semibold text-text">
           Garrett Curtis<span className="text-accent">.</span>
-        </a>
+        </Link>
         <ThemeToggle />
       </div>
     </header>
