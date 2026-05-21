@@ -5,7 +5,7 @@
  * Each typographic role appears once: mono eyebrow (accent color), sans
  * display headline (with accent period), serif body paragraph. If any of
  * these don't render with the expected family, the next/font/google wiring
- * or the @theme block is wrong.
+ * or the `@theme` block is wrong.
  */
 export default function Home() {
   return (
