@@ -2,7 +2,7 @@
 
 > The binding design contract for the rebuild. Every slice references this file. If a slice surfaces a design decision that isn't covered here, work stops and the gap gets resolved by updating this file. Implementation never invents against the spec.
 
-**Status:** v1, ratified 2026-05-20.
+**Status:** v1.1, ratified 2026-05-20. Slice 0 implementation rename applied (see §12 Changelog).
 **Aesthetic lane:** B — Warm editorial (without the magazine trap).
 **Owners:** Garrett Curtis (design). Claude Code (implementation).
 **Source artifacts:** `prototypes/lane-a.html`, `prototypes/lane-b.html`, `prototypes/index.html` (Lane B was selected).
@@ -463,3 +463,4 @@ Restated verbatim from `docs/PORTFOLIO_SPEC.md` and impeccable's shared design l
 | Date | Change |
 |---|---|
 | 2026-05-20 | v1 ratified. Lane B (Spectral + Hanken Grotesk + JetBrains Mono, ember accent). |
+| 2026-05-20 | v1.1 — Raw token CSS-var names normalized to unprefixed form (`--bg`, `--text`, `--accent`, …) to avoid collision with Tailwind v4 `@theme` `--color-*` utility namespace. The exposed token names (`--color-bg`, `--color-text`, …) consumers reference are unchanged; the rename is purely internal. OKLCH values and design intent are unchanged. See `docs/specs/2026-05-20-slice-0-foundation-design.md` §4 for the implementation rationale. |

@@ -1,64 +1,31 @@
-import Link from "next/link";
-import { projects } from "@/lib/projects";
-import { ProjectCard } from "@/components/ProjectCard";
-import Image from "next/image"
-import BackgroundBlobs from "@/components/BackgroundBlobs";
-import SkillGalaxy from "@/components/SkillGalaxy";
-
-export default function Page() {
+/**
+ * Slice 0 placeholder home page. Verifies the design tokens, fonts, and
+ * chrome render correctly. Replaced by the real home page in Slice 1.
+ *
+ * Each typographic role appears once: mono eyebrow (accent color), sans
+ * display headline (with accent period), serif body paragraph. If any of
+ * these don't render with the expected family, the next/font/google wiring
+ * or the `@theme` block is wrong.
+ */
+export default function Home() {
   return (
-    <div className="relative space-y-10 overflow-visible pb-36 md:pb-40">
-      <BackgroundBlobs variant="home" />
-      
-      {/* Full-page 3D background */}
-      <SkillGalaxy />
-
-      {/* Your sections go here */}
-<div className="space-y-10 relative z-10 mt-36 md:mt-32">
-      <section className="text-center space-y-4">
-        {/* Profile image */}
-        <div className="flex justify-center relative z-20">
-          <Link
-            href="https://youtu.be/Aq5WXmQQooo?si=he-LD_B8LM-beBZp"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-block transition-transform duration-200 hover:scale-105 active:scale-95 relative z-20"
-          >
-            <Image
-              src="/me.jpeg"
-              alt="Garrett Curtis"
-              width={160}
-              height={160}
-              className="rounded-full object-cover border shadow-md hover:shadow-lg transition-shadow duration-200 cursor-pointer"
-            />
-          </Link>
-        </div>
-      </section>
-
-      <div className="space-y-10">
-        <section className="text-center space-y-4 overflow-visible relative z-20">
-          <p className="text-sm tracking-wider uppercase">Hello, I’m</p>
-          <h1 className="text-4xl md:text-6xl font-bold">Garrett Curtis</h1>
-          <p className="text-lg md:text-xl text-slate-700 dark:text-slate-300">
-  Corporate Infrastructure Specialist → Software Engineer
-</p>
-
-          <p className="max-w-2xl mx-auto">
-           
-          </p>
-          <div className="flex gap-3 justify-center">
-            <Link href="/projects" 
-            className=" outline px-5 py-2 rounded-2xl border transform transition duration-150 ease-out hover:-translate-y-1 active:translate-y-0.5 active:scale-95 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-              View Projects</Link>
-            <Link href="/contact" className=" outline px-5 py-2 rounded-2xl border transform transition duration-150 ease-out hover:-translate-y-1 active:translate-y-0.5 active:scale-95 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Contact</Link>
-          </div>
-        </section>
-
-        <section className="space-y-6 overflow-visible px-4 py-8">
-</section>
-
-      </div>
-    </div>
-    </div>
+    <section className="mx-auto max-w-[1100px] px-4 pt-7 pb-7">
+      <p className="font-mono text-xs uppercase tracking-wider text-accent">
+        {"// slice 0"}
+      </p>
+      <h1
+        className="mt-2 font-sans text-display font-bold text-text"
+        style={{ letterSpacing: "-0.025em", lineHeight: 1 }}
+      >
+        Foundation<span className="text-accent">.</span>
+      </h1>
+      <p
+        className="mt-4 max-w-[54ch] font-serif text-md text-text"
+        style={{ lineHeight: 1.65 }}
+      >
+        This is a placeholder. The site is being rebuilt. The real home page
+        lands in Slice 1.
+      </p>
+    </section>
   );
 }

@@ -6,10 +6,13 @@
 
 ## Current status
 
-**Phase:** Planning complete. Ready to begin Slice 0 (Foundation) in Claude Code.
-**Branch strategy:** Build on a clean repo or a new branch off the existing `garrettcurtis.tech` repo — decision made at build time.
-**Next action:** In Claude Code, scaffold Slice 0 per the implementation plan below. Before any UI work begins, run `/superpowers` brainstorming for the design system, then run `impeccable.style` workflows to produce the design spec. Implementation follows the spec, not the other way around.
-**Last updated:** 2026-05-20 (planning session).
+**Phase:** Slice 0 complete. Ready to begin Slice 1 (Home + About).
+**Branch strategy:** Slice 0 merged to `rebuild/v2`. Continue slicing PRs into `rebuild/v2`; `main` keeps the legacy site until Slice 5 cutover.
+**Next action:** In Claude Code, invoke `superpowers:brainstorming` for Slice 1 — Home + About.
+**Last updated:** 2026-05-20 (Slice 0 completion).
+
+Slice 0 spec: `docs/specs/2026-05-20-slice-0-foundation-design.md`.
+Staging URL: `https://garrett-portfolio-rebuild.vercel.app` (deploys from `rebuild/v2`).
 
 > **When picking up a new session:** read this Current status block first. If a slice has moved on, treat the slice table and any per-slice spec files as authoritative — older conversation context may be stale.
 
@@ -327,9 +330,9 @@ Design specs are produced by Garrett via `/superpowers` brainstorming and `impec
 ### Slice 0 — Foundation
 
 *Scaffolding, design tokens, layout primitives, deploy pipeline.*
+**Status:** Complete (merged via Slice 0 PR; deployed to https://garrett-portfolio-rebuild.vercel.app).
 
 - Next.js 16 + Tailwind v4 + TS strict scaffold
-- shadcn/ui set up with custom tokens (tokens pulled from the design spec produced via `/superpowers` + `impeccable.style`)
 - Root layout, header, footer, theme toggle (dark/light)
 - Typography pairing applied per design spec
 - Vercel project connected, deploys from `main` to a staging URL (NOT `garrettcurtis.tech` yet)
@@ -367,6 +370,7 @@ Design specs are produced by Garrett via `/superpowers` brainstorming and `impec
 - Warm, open-ended copy — NOT "available for hire" or "open to consulting" (that signals freelance work and is wrong for current audience priority)
 - Direct links to GitHub, LinkedIn, email
 - Form submits successfully and emails Garrett
+- shadcn/ui set up with custom tokens (deferred from Slice 0)
 
 **Definition of done:** Form works end to end. Garrett receives a test submission. Validation errors render correctly.
 
