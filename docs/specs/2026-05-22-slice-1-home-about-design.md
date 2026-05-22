@@ -74,8 +74,9 @@ All three are Server Components — no `"use client"`. The only interactive thin
 In top-to-bottom order:
 
 1. **Hero section.**
-   - Two-column at and above 720px: `[ eyebrow + H1 + subhead ]` on the left, `[ hero meta block ]` on the right.
-   - Single-column below 720px: eyebrow → H1 → subhead → hero meta (left-aligned, not right-aligned).
+   - Two-column at and above 720px: `[ H1 + subhead ]` on the left, `[ hero meta block ]` on the right.
+   - Single-column below 720px: H1 → subhead → hero meta (left-aligned, not right-aligned).
+   - No eyebrow above the H1 on the home page — the hero meta block's `// now` (first line, accent) carries the metadata-eyebrow role. Two accent-mono eyebrows in one hero would be visually noisy. (Decision: §12.1 Q2.)
    - Implementation: `grid grid-cols-1 min-[720px]:grid-cols-[1fr_auto] gap-4 min-[720px]:gap-6`. The hero meta block gets `min-[720px]:text-right`. The 720px breakpoint is design-spec §6.2's specified hero collapse point; using Tailwind v4's arbitrary breakpoint syntax `min-[720px]:` matches the spec exactly (Tailwind's default `md:` is 768px, which would leave a 48px window where the layout doesn't match spec).
    - Spacing: `mt-7` (8rem top) and `mb-5` (3.5rem bottom) to give the hero generous breathing room per design-spec §4.1 ("very generous around the hero").
 2. **About teaser section.**
@@ -139,7 +140,7 @@ Notes:
 - No additional props. The component is intentionally narrow. If a future page needs a non-accent variant or a different size, the spec gets updated first.
 - The `tracking-wider` class is Tailwind's `letter-spacing: 0.05em`, close to the design-spec §3.3 mono tags range of `+0.04em` to `+0.08em`.
 - The `<p>` semantic (vs. `<span>` or `<div>`) reads as a labeled paragraph, which is what an eyebrow is structurally.
-- **Accent color note.** The design-spec §2.3 accent budget lists "the `// now` status line in the hero meta block" (item 6) and "case-study eyebrow links" (item 3) as accent uses, but does not explicitly list page-level eyebrows like `/about` or `// 404`. The Slice 0 placeholder home shipped an accent-colored `// slice 0` eyebrow, establishing a pattern. Slice 1 reads §2.3 as a non-exhaustive list of accent use cases — small mono URL-like labels qualify. If a stricter reading is preferred, the spec would need to either drop the accent on these eyebrows or formally extend §2.3 in a design-spec v1.2 amendment. Surfaced in §12 as an open question.
+- **Accent color note.** The design-spec §2.3 accent budget lists "the `// now` status line in the hero meta block" (item 6) and "case-study eyebrow links" (item 3) as accent uses, but does not explicitly list page-level eyebrows like `/about` or `// 404`. The Slice 0 placeholder home shipped an accent-colored `// slice 0` eyebrow, establishing a pattern. Slice 1 reads §2.3 as a non-exhaustive list of accent use cases — small mono URL-like labels qualify. Decision locked in §12.1 Q3 (pragmatic reading).
 - TSDoc block present per the project's `docs:check` gate (CI fails if any exported symbol is missing its doc comment).
 
 ### 4.2 `src/components/header.tsx` — modification
@@ -191,9 +192,7 @@ All copy below ships verbatim. Implementation does not re-word, restructure, or 
 ### 5.1 Home page copy
 
 ```
-[Hero — eyebrow + headline + subhead, left of grid]
-
-EYEBROW (mono accent):    // home
+[Hero — headline + subhead, left of grid. No eyebrow per §12.1 Q2.]
 
 H1 (sans 700, display):   AI-native builder. Full-stack engineer.
                           (Both periods are accent-colored.)
@@ -556,13 +555,13 @@ No edits required to `design-spec.md`: Slice 1 introduces no new visual patterns
 - **Next 16 `not-found.tsx` convention.** A file at `app/not-found.tsx` is Next 16's built-in mechanism for the global 404 page. Stable, documented, no special metadata API quirks. Lowest-risk item on this list.
 - **Branch protection toggle.** After CI runs once with the new `e2e` job, the GitHub branch-protection rule for `rebuild/v2` needs the new check added to its required list. Same manual UI step as Slice 0; documented in §10 DoD.
 
-### 12.1 Open questions surfaced by spec self-review
+### 12.1 Decisions from spec self-review
 
-These are questions the self-review pass surfaced that need Garrett's explicit decision before implementation begins. Each has a tentative answer that the spec currently assumes, but both deserve confirmation.
+The self-review pass surfaced three design-judgment questions. All three were resolved in chat on 2026-05-22 before the implementation plan was written. Recorded here for traceability.
 
-- **Q1: Em-dashes in the locked PORTFOLIO_SPEC copy.** The product spec's "Positioning (locked, verbatim)" section contains em-dashes in the hero subhead (`"...not a tool — the result is..."`) and in the About body paragraph 1 (`"...how I work — internal tools at..."`). The design-spec §9.2 explicitly bans em-dashes in copy. The Slice 1 §5 copy block currently replaces them with periods. Tentative answer: this is a minor editorial change consistent with the design-spec's stated discipline, and the PORTFOLIO_SPEC's "locked, verbatim" status applies to the *content* of the copy, not the punctuation glyphs. **Garrett to confirm: edit the em-dashes (current draft), or restore them and amend design-spec §9.2 to allow em-dashes in locked copy specifically?**
-- **Q2: Home page `// home` eyebrow — keep or drop?** The Slice 1 §5.1 draft includes a `// home` eyebrow above the H1 on the home page (mirroring the `// slice 0` pattern from the Slice 0 placeholder). The hero meta block to the right already has `// now` as its first line in the same mono+accent style. Two mono+accent eyebrows in the same hero may be visually noisy. Tentative answer: drop the `// home` eyebrow on the home page; the hero meta block's `// now` carries the same metadata-eyebrow role. About and 404 still get their `/about` and `// 404` eyebrows (no competing label nearby). **Garrett to confirm: drop the `// home` eyebrow, keep it, or replace it with something else?**
-- **Q3: Accent on `/about` and `// 404` eyebrows — strict or pragmatic reading of design-spec §2.3?** See §4.1 notes. Tentative answer: pragmatic reading — accent stays on these eyebrows. **Garrett to confirm: pragmatic (current draft) or strict (drop the accent / spec amendment)?**
+- **Q1: Em-dashes in the locked PORTFOLIO_SPEC copy.** Resolved: the em-dashes are replaced with periods in Slice 1's rendered copy. The "locked, verbatim" status in PORTFOLIO_SPEC applies to the *content* (meaning, word choice, structure) of the copy, not the exact punctuation glyphs. The design-spec §9.2 em-dash ban is the more specific stylistic rule and applies here. Affected copy: hero subhead ("...not a tool. The result is..."), About body paragraph 1 ("...how I work. Internal tools at..."). The 404 body has no em-dashes by drafting.
+- **Q2: Home page `// home` eyebrow.** Resolved: dropped. The hero meta block's `// now` (first line, accent) carries the metadata-eyebrow role on the home page. The home page is also the only page that doesn't need an eyebrow to identify itself; About and 404 retain their `/about` and `// 404` eyebrows. The Slice 0 placeholder's `// slice 0` was a development convenience, not a permanent pattern.
+- **Q3: Accent color on `/about` and `// 404` eyebrows.** Resolved: pragmatic reading of design-spec §2.3. The §2.3 list enumerates *kinds* of accent uses, not an exhaustive set of every label. Small mono URL-like labels on chrome pages qualify under the same intent as item 6 (`// now`) and item 3 (case-study eyebrow links). No design-spec amendment is required. If a future slice introduces a different *kind* of accent use, that needs an amendment first.
 
 ---
 
