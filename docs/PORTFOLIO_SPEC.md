@@ -6,13 +6,13 @@
 
 ## Current status
 
-**Phase:** Slice 0 complete. Ready to begin Slice 1 (Home + About).
-**Branch strategy:** Slice 0 merged to `rebuild/v2`. Continue slicing PRs into `rebuild/v2`; `main` keeps the legacy site until Slice 5 cutover.
-**Next action:** In Claude Code, invoke `superpowers:brainstorming` for Slice 1 — Home + About.
-**Last updated:** 2026-05-20 (Slice 0 completion).
+**Phase:** Slice 1 complete. Ready to begin Slice 2 (Work index + case studies).
+**Branch strategy:** Slice 0 + Slice 1 merged to `rebuild/v2`. Continue slicing PRs into `rebuild/v2`; `main` keeps the legacy site until Slice 5 cutover.
+**Next action:** In Claude Code, invoke `superpowers:brainstorming` for Slice 2 scope.
+**Last updated:** 2026-05-22.
 
-Slice 0 spec: `docs/specs/2026-05-20-slice-0-foundation-design.md`.
-Staging URL: `https://garrett-portfolio-rebuild.vercel.app` (deploys from `rebuild/v2`).
+Slice 0 spec: `docs/specs/2026-05-20-slice-0-foundation-design.md`. Slice 0 plan: `docs/specs/2026-05-20-slice-0-foundation-plan.md`. Staging URL: `https://garrett-portfolio-rebuild.vercel.app` (deploys from `rebuild/v2`).
+Slice 1 spec: `docs/specs/2026-05-22-slice-1-home-about-design.md`. Slice 1 plan: `docs/specs/2026-05-22-slice-1-home-about-plan.md`. PR: #TBD.
 
 > **When picking up a new session:** read this Current status block first. If a slice has moved on, treat the slice table and any per-slice spec files as authoritative — older conversation context may be stale.
 
@@ -341,6 +341,8 @@ Design specs are produced by Garrett via `/superpowers` brainstorming and `impec
 **Definition of done:** A "Hello world" page deploys to a staging Vercel URL. Theme toggle works. Type, lint, test, and docs gates all pass. The design spec is committed in the repo before any UI work happens.
 
 ### Slice 1 — Home + About
+
+**Status:** Complete (PR #TBD, deployed to <https://garrett-portfolio-rebuild.vercel.app>).
 
 *The new positioning, live.*
 
