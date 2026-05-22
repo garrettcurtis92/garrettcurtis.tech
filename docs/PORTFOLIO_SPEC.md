@@ -12,7 +12,7 @@
 **Last updated:** 2026-05-22.
 
 Slice 0 spec: `docs/specs/2026-05-20-slice-0-foundation-design.md`. Slice 0 plan: `docs/specs/2026-05-20-slice-0-foundation-plan.md`. Staging URL: `https://garrett-portfolio-rebuild.vercel.app` (deploys from `rebuild/v2`).
-Slice 1 spec: `docs/specs/2026-05-22-slice-1-home-about-design.md`. Slice 1 plan: `docs/specs/2026-05-22-slice-1-home-about-plan.md`. PR: #TBD.
+Slice 1 spec: `docs/specs/2026-05-22-slice-1-home-about-design.md`. Slice 1 plan: `docs/specs/2026-05-22-slice-1-home-about-plan.md`. PR: #2.
 
 > **When picking up a new session:** read this Current status block first. If a slice has moved on, treat the slice table and any per-slice spec files as authoritative — older conversation context may be stale.
 
@@ -342,7 +342,7 @@ Design specs are produced by Garrett via `/superpowers` brainstorming and `impec
 
 ### Slice 1 — Home + About
 
-**Status:** Complete (PR #TBD, deployed to <https://garrett-portfolio-rebuild.vercel.app>).
+**Status:** Complete (PR #2, deployed to <https://garrett-portfolio-rebuild.vercel.app>).
 
 *The new positioning, live.*
 
