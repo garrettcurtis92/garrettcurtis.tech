@@ -26,6 +26,9 @@ yarn-error.log*
 # Vercel
 .vercel
 
+# Superpowers brainstorming session artifacts
+.superpowers/
+
 # TypeScript
 *.tsbuildinfo
 
